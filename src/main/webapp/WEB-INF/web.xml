@@ -4,22 +4,24 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-<!--    <servlet>-->
-<!--        <servlet-name>Welcome</servlet-name>-->
-<!--        <servlet-class>com.infopulse.servlet.HelloServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>Myservlet</servlet-name>-->
-<!--        <url-pattern>/hello</url-pattern>-->
-<!--    </servlet-mapping>-->
-<!--    <servlet>-->
-<!--        <servlet-name>OutputServlet</servlet-name>-->
-<!--        <servlet-class>com.infopulse.servlet.OutputServlet</servlet-class>-->
-<!--    </servlet>-->
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>OutputServlet</servlet-name>-->
-<!--        <url-pattern>/output</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>Welcome</servlet-name>
+        <servlet-class>com.bank.servlets.WelcomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Welcome</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>com.bank.servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
 <!--    <filter>-->
 <!--        <filter-name>MyFilter</filter-name>-->
 <!--        <filter-class>com.infopulse.filter.ParamFilter</filter-class>-->

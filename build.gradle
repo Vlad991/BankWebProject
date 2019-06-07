@@ -42,7 +42,7 @@ cargo {
 
 
     deployable {
-        context = 'mycontext'
+        context = 'mybank'
     }
 
     remote {

@@ -12,8 +12,9 @@
 </head>
 <body>
     <h1>Welcome to our bank!</h1>
-    <form action="/welcome-page">
-
+    <form action="/" method="get">
+        <input type="submit" name="login" value="login"/>
+        <input type="submit" name="registr" value="registr">
     </form>
 </body>
 </html>
