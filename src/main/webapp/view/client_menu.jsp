@@ -9,7 +9,9 @@
 <html>
 <head>
     <title>Client</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        <%@ include file="/view/css/style.css" %>
+    </style>
 </head>
 <body>
     <h1>Hello, Client!</h1>
