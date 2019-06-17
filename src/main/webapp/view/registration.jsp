@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Registration</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <h1>Here you can register!</h1>
