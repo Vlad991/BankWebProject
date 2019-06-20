@@ -9,84 +9,167 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bank.model.client.Client;
+import com.bank.dto.Client;
+import com.bank.dto.CreditCard;
 
 public class ClientDAO {
-	private static int newClientId;
+	private Connection connection;
+	private ConnectionPool connectionPool;
+	private CreditCardDAO creditCardDAO;
 
-	private Connection getConnection() throws Exception {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/accountDB", "root", "123root@");
+	public ClientDAO() {
+		connectionPool = ConnectionPool.getConnectionPool();
+		connection = connectionPool.getConnection();
 	}
 
-	public List<Integer> getClientIds() throws Exception {
-		List<Integer> clientIds = new ArrayList<Integer>();
-		Connection con = getConnection();
-		Statement st = con.createStatement();
-		ResultSet res = st.executeQuery("select id_cl from clients");
+	public void returnConnectionInPool() {
+		connectionPool.returnConnection(connection);
+	}
+
+	public PreparedStatement getPreparedStatement(String sql) {
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return ps;
+	}
+
+	public void closePreparedStatement(PreparedStatement ps) {
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+//	private Connection getConnection() throws Exception {
+//		Class.forName("com.mysql.cj.jdbc.Driver");
+//		return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/accountDB", "root", "123root@");
+//	}
+
+	public List<Long> getClientIds() throws Exception {
+		List<Long> clientIds = new ArrayList<>();
+		PreparedStatement ps = getPreparedStatement().executeQuery("select id from clients");
+		ResultSet res = st.executeQuery();
 		while (res.next()) {
-			clientIds.add(res.getInt("id_cl"));
+			clientIds.add(res.getLong("id"));
 		}
 		res.close();
 		return clientIds;
 	}
 
-	public Client getClientById(int id) throws Exception {
-		Client client = null;
-		Connection con = getConnection();
-		PreparedStatement st = con
-				.prepareStatement("select name, surname, date_of_birth " + "from clients " + "where id_cl = ?");
-		st.setInt(1, id);
+	public Client getClientById(Long id) throws Exception {
+		PreparedStatement st = connection
+				.prepareStatement("select login, name, surname," +
+						" email, phone, country, city, address," +
+						" date_of_birth, password from clients where id = ?");
+		st.setLong(1, id);
 		ResultSet rs = st.executeQuery();
-		while (rs.next()) {
-			client = new Client(id, rs.getString("name"), rs.getString("surname"), rs.getString("date_of_birth"));
-		}
+		rs.next();
+		Client client = new Client(id, rs.getString("login"),
+				rs.getString("name"),
+				rs.getString("surname"),
+				rs.getString("email"),
+				rs.getString("phone"),
+				rs.getString("country"),
+				rs.getString("city"),
+				rs.getString("address"),
+				rs.getString("date_of_birth"),
+				rs.getString("password"));
 		rs.close();
 		return client;
 	}
 
-	public Client getClientByName(String name) throws Exception {
-		Client client = null;
-		Connection con = getConnection();
-		PreparedStatement st = con
-				.prepareStatement("select id_cl, surname, date_of_birth " + "from clients " + "where name = ?");
-		st.setString(1, name);
+	public Client getClientByLogin(String login) throws Exception {
+		PreparedStatement st = connection
+				.prepareStatement("select id, name, surname," +
+						" email, phone, country, city, address," +
+						" date_of_birth, password from clients where login = ?");
+		st.setString(1, login);
 		ResultSet rs = st.executeQuery();
-		while (rs.next()) {
-			client = new Client(rs.getInt("id_cl"), name, rs.getString("surname"), rs.getString("date_of_birth"));
-		}
+		rs.next();
+		Client client = new Client(rs.getLong("id"),
+				login,
+				rs.getString("name"),
+				rs.getString("surname"),
+				rs.getString("email"),
+				rs.getString("phone"),
+				rs.getString("country"),
+				rs.getString("city"),
+				rs.getString("address"),
+				rs.getString("date_of_birth"),
+				rs.getString("password"));
 		rs.close();
 		return client;
 	}
 
-	public void addClient(Client client) throws Exception {
-		Connection con = getConnection();
-		PreparedStatement st = con
-				.prepareStatement("insert into clients (id_cl, name, surname, date_of_birth) " + "values (?, ?, ?, ?)");
-		st.setInt(1, client.getId());
-		st.setString(2, client.getName());
-		st.setString(3, client.getSurname());
-		st.setString(4, client.getDateOfBirth());
+	public void addNewClient(Client client) throws Exception {
+		PreparedStatement st = connection
+				.prepareStatement("insert into clients (" +
+						"id, " +
+						"login, " +
+						"name, " +
+						"surname, " +
+						"email, " +
+						"phone, " +
+						"country, " +
+						"city, " +
+						"address, " +
+						"date_of_birth, " +
+						"password) " +
+						"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		st.setLong(1, client.getId());
+		st.setString(2, client.getLogin());
+		st.setString(3, client.getName());
+		st.setString(4, client.getSurname());
+		st.setString(5, client.getEmail());
+		st.setString(6, client.getPhone());
+		st.setString(7, client.getCountry());
+		st.setString(8, client.getCity());
+		st.setString(9, client.getAddress());
+		st.setString(10, client.getDateOfBirth());
+		st.setString(11, client.getPassword());
 
 		st.executeUpdate();
 	}
 
 	public void setClient(Client client) throws Exception {
-		Connection con = getConnection();
-		PreparedStatement st = con
-				.prepareStatement("update clients " + "set name= ?, surname= ?, date_of_birth= ? " + "where id_cl = ?");
-		st.setString(1, client.getName());
-		st.setString(2, client.getSurname());
-		st.setString(3, client.getDateOfBirth());
-		st.setInt(4, client.getId());
+		PreparedStatement st = connection
+				.prepareStatement("update clients set " +
+						"login = ?, " +
+						"name = ?, " +
+						"surname = ?, " +
+						"email = ?, " +
+						"phone = ?, " +
+						"country = ?, " +
+						"city = ?, " +
+						"address = ?, " +
+						"date_of_birth = ?, " +
+						"password = ? " +
+						"where id = ?");
+		st.setString(1, client.getLogin());
+		st.setString(2, client.getName());
+		st.setString(3, client.getSurname());
+		st.setString(4, client.getEmail());
+		st.setString(5, client.getPhone());
+		st.setString(6, client.getCountry());
+		st.setString(7, client.getCity());
+		st.setString(8, client.getAddress());
+		st.setString(9, client.getDateOfBirth());
+		st.setString(10, client.getPassword());
+		st.setLong(11, client.getId());
 
 		st.executeUpdate();
 	}
 
-	public void removeClient(int id) throws Exception {
-		Connection con = getConnection();
-		PreparedStatement st = con.prepareStatement("delete from clients " + "where id_cl = ?");
-		st.setInt(1, id);
+	public void removeClient(Long id) throws Exception {
+		PreparedStatement st = connection.prepareStatement("delete from clients where id = ?");
+		st.setLong(1, id);
 
 		st.executeUpdate();
 	}
