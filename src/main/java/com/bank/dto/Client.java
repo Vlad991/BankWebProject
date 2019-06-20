@@ -1,6 +1,6 @@
 package com.bank.dto;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Client {
@@ -9,7 +9,7 @@ public class Client {
     private String name;
     private String surname;
     private Date birthday;
-    private String addressId;
+    private Long addressId;
     private String email;
     private String phone;
     private String password;
@@ -17,7 +17,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(Long id, String login, String name, String surname, Date birthday, String addressId, String email, String phone, String password) {
+    public Client(Long id, String login, String name, String surname, Date birthday, Long addressId, String email, String phone, String password) {
         this.id = id;
         this.login = login;
         this.name = name;
@@ -69,11 +69,11 @@ public class Client {
         this.birthday = birthday;
     }
 
-    public String getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 
