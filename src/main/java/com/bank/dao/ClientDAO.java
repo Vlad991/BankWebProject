@@ -165,7 +165,8 @@ public class ClientDAO {
 					"address_id = ?, " +
 					"email = ?, " +
 					"phone = ?, " +
-					"password = ?");
+					"password = ? " +
+					"where id = ?");
 			ps.setLong(1, client.getId());
 			ps.setString(2, client.getLogin());
 			ps.setString(3, client.getName());
@@ -175,6 +176,7 @@ public class ClientDAO {
 			ps.setString(7, client.getEmail());
 			ps.setString(8, client.getPhone());
 			ps.setString(9, client.getPassword());
+			ps.setLong(10, client.getId());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {

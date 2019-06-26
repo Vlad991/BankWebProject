@@ -15,14 +15,14 @@ public class CreditCard {
         status = CreditCardStatus.UNREGISTERED;
     }
 
-    public CreditCard(Long id, String date, Long clientId, int code, int pin, Long sum) {
+    public CreditCard(Long id, String date, Long clientId, int code, int pin, Long sum, CreditCardStatus status) {
         this.id = id;
         this.date = date;
         this.clientId = clientId;
         this.code = code;
         this.pin = pin;
         this.sum = sum;
-        status = CreditCardStatus.OPEN;
+        this.status = status;
     }
 
     public Long getId() {

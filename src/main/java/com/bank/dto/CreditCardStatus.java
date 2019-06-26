@@ -1,9 +1,9 @@
 package com.bank.dto;
 
 public enum CreditCardStatus {
-	OPEN("open"),
-	BLOCKED("blocked"),
-	UNREGISTERED("unregistered");
+	OPEN("OPEN"),
+	BLOCKED("BLOCKED"),
+	UNREGISTERED("UNREGISTERED");
 
 	private String status;
 
@@ -14,4 +14,5 @@ public enum CreditCardStatus {
 	public String getStatus() {
 		return status;
 	}
+
 }

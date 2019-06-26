@@ -137,12 +137,14 @@ public class AddressDAO {
                     "country = ?, " +
                     "city = ?, " +
                     "street = ?, " +
-                    "postcode = ?");
+                    "postcode = ? " +
+                    "where id = ?");
             ps.setLong(1, address.getId());
             ps.setString(2, address.getCountry());
             ps.setString(3, address.getCity());
             ps.setString(4, address.getStreet());
             ps.setInt(5, address.getPostCode());
+            ps.setLong(6, address.getId());
 
             ps.executeUpdate();
         } catch (SQLException e) {

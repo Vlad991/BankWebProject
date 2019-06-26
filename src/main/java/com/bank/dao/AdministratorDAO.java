@@ -135,12 +135,14 @@ public class AdministratorDAO {
 					"login = ?, " +
 					"name = ?, " +
 					"surname = ?, " +
-					"password = ?");
+					"password = ? " +
+					"where id = ?");
 			ps.setInt(1, admin.getId());
 			ps.setString(2, admin.getLogin());
 			ps.setString(3, admin.getName());
 			ps.setString(4, admin.getSurname());
 			ps.setString(5, admin.getPassword());
+			ps.setInt(6, admin.getId());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
