@@ -118,7 +118,7 @@ public class AdministratorDAO {
 			ps.setString(2, admin.getLogin());
 			ps.setString(3, admin.getName());
 			ps.setString(4, admin.getSurname());
-			ps.setString(9, admin.getPassword());
+			ps.setString(5, admin.getPassword());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,7 +140,7 @@ public class AdministratorDAO {
 			ps.setString(2, admin.getLogin());
 			ps.setString(3, admin.getName());
 			ps.setString(4, admin.getSurname());
-			ps.setString(9, admin.getPassword());
+			ps.setString(5, admin.getPassword());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
