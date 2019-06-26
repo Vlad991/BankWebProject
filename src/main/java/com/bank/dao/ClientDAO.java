@@ -7,22 +7,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bank.dao.transaction.TransactionManager;
+import com.bank.dao.transaction.WrapConnection;
 import com.bank.dao.transaction.pool.ConnectionPool;
 import com.bank.dto.Client;
 
 public class ClientDAO {
-	private Connection connection;
-	private ConnectionPool connectionPool;
-	private CreditCardDAO creditCardDAO;
+//	private Connection connection;
+//	private ConnectionPool connectionPool;
+//	private CreditCardDAO creditCardDAO;
+	private WrapConnection connection;
 
 	public ClientDAO() {
-		connectionPool = ConnectionPool.getConnectionPool();
-		connection = connectionPool.getConnection();
+//		connectionPool = ConnectionPool.getConnectionPool();
+//		connection = connectionPool.getConnection();
+		connection = TransactionManager.getConnection();
 	}
 
-	public void returnConnectionInPool() {
-		connectionPool.returnConnection(connection);
-	}
+//	public void returnConnectionInPool() {
+//		connectionPool.returnConnection(connection);
+//	}
 
 	public PreparedStatement getPreparedStatement(String sql) {
 		PreparedStatement ps = null;
@@ -67,12 +71,12 @@ public class ClientDAO {
 		return clientIds;
 	}
 
-	public Client getClientById(Long id){
+	public Client getClientById(Long id) {
 		Client client = null;
 		PreparedStatement ps = null;
 		try {
 			ps = getPreparedStatement("select login, name," +
-					" surname, birthday, address_id, email, phone, password where id = ?");
+					" surname, birthday, address_id, email, phone, password from clients where id = ?");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -92,12 +96,12 @@ public class ClientDAO {
 		return client;
 	}
 
-	public Client getClientByLogin(String login) throws Exception {
+	public Client getClientByLogin(String login) {
 		Client client = null;
 		PreparedStatement ps = null;
 		try {
 			ps = getPreparedStatement("select id, name," +
-					" surname, birthday, address_id, email, phone, password where login = ?");
+					" surname, birthday, address_id, email, phone, password from clients where login = ?");
 			ps.setString(1, login);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -118,7 +122,7 @@ public class ClientDAO {
 		return client;
 	}
 
-	public void addClient(Client client) throws Exception {
+	public void addClient(Client client) {
 		PreparedStatement ps = null;
 		try {
 			ps = getPreparedStatement("insert into clients " +
@@ -149,7 +153,7 @@ public class ClientDAO {
 		}
 	}
 
-	public void setClient(Client client) throws Exception {
+	public void setClient(Client client) {
 		PreparedStatement ps = null;
 		try {
 			ps = getPreparedStatement("update clients set " +
@@ -180,7 +184,7 @@ public class ClientDAO {
 		}
 	}
 
-	public void removeClient(Long id) throws Exception {
+	public void removeClient(Long id) {
 		PreparedStatement ps = null;
 		try {
 			ps = getPreparedStatement("delete from clients where id = ?");
@@ -215,12 +219,15 @@ public class ClientDAO {
 
 	}
 	
-//	public boolean clientIsExist(String name, String pass) {
-//		if ((getClientByName(name) != null) && ((getClientPass(getClientByName(name).getId())).equals(pass))) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
+	public boolean clientIsExist(String login, String pass) {
+		if ((getClientByLogin(login) != null) && ((getClientPass(getClientByLogin(login).getId())).equals(pass))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void closeConnection() {
+	}
 	
 }
