@@ -34,6 +34,8 @@ dependencies {
     cargo "org.codehaus.cargo:cargo-core-uberjar:1.4.5",  "org.codehaus.cargo:cargo-ant:1.4.5"
     compile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2'
     compile group: 'jstl', name: 'jstl', version: '1.2'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+    compile 'org.postgresql:postgresql:42.2.5'
 }
 
 cargo {

@@ -1,5 +1,7 @@
 package com.bank.dao;
 
+import com.bank.dto.Administrator;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bank.model.administrator.Administrator;
 
 public class AdministratorDAO {
 	private static int newAdministratorId;

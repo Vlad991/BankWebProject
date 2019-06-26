@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bank.dao.transaction.pool.ConnectionPool;
 import com.bank.dto.Client;
 
 public class ClientDAO {
