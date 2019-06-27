@@ -18,7 +18,7 @@ public class TransactionManager {
 ////        ((PGPoolingDataSource) dataSource).setUser("testuser");
 ////        ((PGPoolingDataSource) dataSource).setPassword("testpassword");
 ////        ((PGPoolingDataSource) dataSource).setMaxConnections(10);
-        dataSource = new ConnectionPool(30, 30);
+        dataSource = new ConnectionPool(10, 30);
     }
 
     private TransactionManager() {

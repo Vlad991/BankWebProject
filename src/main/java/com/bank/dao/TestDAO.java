@@ -8,17 +8,18 @@ import java.sql.Date;
 public class TestDAO {
 
 	public static void main(String[] args) throws Exception {
-		TransactionManager.beginTransaction();
-		ClientDAO clientDAO = new ClientDAO();
-		clientDAO.addClient(new Client(1L,
+		Client client1 = new Client(1L,
 				"vlad99",
 				"Vladyslav",
 				"Kuzma",
-				new Date(1999, 10, 14),
+				new Date(99, 10, 14),
 				1L,
 				"vladkuzma99@gamil.com",
-				"0662873382",
-				"123root@"));
+				"+380662873382",
+				"123root@");
+		TransactionManager.beginTransaction();
+		ClientDAO clientDAO = new ClientDAO();
+		clientDAO.removeClient(client1.getId());
 		TransactionManager.commitTransaction();
 	}
 
