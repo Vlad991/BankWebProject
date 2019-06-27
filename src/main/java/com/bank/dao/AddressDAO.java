@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressDAO {
-
-
     private WrapConnection connection;
 
     public AddressDAO() {
@@ -46,7 +44,7 @@ public class AddressDAO {
         }
     }
 
-    public List<Long> getAddress() {
+    public List<Long> getAddressIds() {
         List<Long> addressIds = new ArrayList<>();
         PreparedStatement ps = null;
         try {

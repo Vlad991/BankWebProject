@@ -69,4 +69,8 @@ public class TransactionManager {
         }
         return connections.get();
     }
+//
+//    public Connection getFinalConnection() {
+//        return dataSource.getConnection();
+//    }
 }
