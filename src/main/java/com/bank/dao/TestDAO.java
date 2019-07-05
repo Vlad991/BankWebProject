@@ -19,7 +19,7 @@ public class TestDAO {
 				"123root@");
 		TransactionManager.beginTransaction();
 		ClientDAO clientDAO = new ClientDAO();
-		clientDAO.removeClient(client1.getId());
+//		clientDAO.addClient(client1);
 		TransactionManager.commitTransaction();
 	}
 

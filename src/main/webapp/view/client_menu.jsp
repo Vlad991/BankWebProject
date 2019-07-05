@@ -15,5 +15,6 @@
 </head>
 <body>
     <h1>Hello, Client!</h1>
+    <p>Your login is: &{login}</p>
 </body>
 </html>
