@@ -27,7 +27,7 @@
         <input type="text" placeholder="Surname" name="surname"><br>
 
         <h2>Your Birthday: </h2>
-        <input type="text" placeholder="Date" name="date">
+        <input type="text" placeholder="Day" name="day">
         <input type="text" placeholder="Month" name="month">
         <input type="text" placeholder="Year" name="year"><br>
 

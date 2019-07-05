@@ -1,10 +1,5 @@
 package com.bank.dao;
 
-import com.bank.dao.transaction.TransactionManager;
-import com.bank.dto.Client;
-
-import java.sql.Date;
-
 public class TestDAO {
 
 	public static void main(String[] args) throws Exception {
@@ -21,7 +16,7 @@ public class TestDAO {
 //		ClientDAO clientDAO = new ClientDAO();
 ////		clientDAO.removeClient(new Long(1));
 //		TransactionManager.commitTransaction();
-		Date date = new Date(2006, 05, 07);
+//		Date date = new Date(2006, 05, 07);
 	}
 
 }

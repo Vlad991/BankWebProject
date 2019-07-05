@@ -18,10 +18,10 @@ public class Date {
     }
 
     public Date(String date) {
-        String []dateParse = date.split(".");
+        String[] dateParse = date.split("/");
         this.day = Integer.parseInt(dateParse[0]);
         this.month = Integer.parseInt(dateParse[1]);
-        this.month = Integer.parseInt(dateParse[2]);
+        this.year = Integer.parseInt(dateParse[2]);
     }
 
     public int getDay() {
@@ -65,6 +65,6 @@ public class Date {
             month = "0" + month;
         }
 
-        return day + "." + month + "." + year;
+        return day + "/" + month + "/" + year;
     }
 }

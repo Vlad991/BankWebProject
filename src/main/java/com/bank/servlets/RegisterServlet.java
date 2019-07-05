@@ -6,6 +6,7 @@ import com.bank.dao.transaction.TransactionManager;
 import com.bank.dto.Address;
 import com.bank.dto.Client;
 import com.bank.dto.Date;
+import com.bank.exception.TransactionException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,36 +29,42 @@ public class RegisterServlet extends HttpServlet {
 
         if (name != null) {
             String surname = (String) request.getParameter("surname");
-            String date = (String) request.getParameter("date");
+            String day = (String) request.getParameter("day");
             String month = (String) request.getParameter("month");
             String year = (String) request.getParameter("year");
-            Date birthday = new Date(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(date));
+            Date birthday = new Date(Integer.parseInt(day), Integer.parseInt(month), Integer.parseInt(year));
             String country = (String) request.getParameter("country");
             String city = (String) request.getParameter("city");
             String street = (String) request.getParameter("street");
             int postcode = Integer.parseInt((String) request.getParameter("postcode"));
 
-            TransactionManager.beginTransaction();
             Long clientAddressId = new Long(1);
-            AddressDAO addressDAO = new AddressDAO();
-            List<Long> address_ids = addressDAO.getAddressIds();
-            for (Long i = new Long(1); i < address_ids.size(); i++) {
-                if (address_ids.indexOf(i) == -1) {
-                    clientAddressId = i;
-                    break;
+            try {
+                TransactionManager.beginTransaction();
+                AddressDAO addressDAO = new AddressDAO();
+                List<Long> address_ids = addressDAO.getAddressIds();
+                for (Long i = new Long(1); i < address_ids.size() + 2; i++) {
+                    if (address_ids.indexOf(new Long(i)) == -1) {
+                        clientAddressId = i;
+                        break;
+                    }
                 }
-            }
-            for (Long addressId : address_ids) {
-                Address address = addressDAO.getAddressById(addressId);
-                if (address.getCountry().equals(country)
-                        && address.getCity().equals(city)
-                        && address.getStreet().equals(street)
-                        && address.getPostCode() == postcode) {
-                    clientAddressId = address.getId();
-                    break;
+                for (Long addressId : address_ids) {
+                    Address address = addressDAO.getAddressById(addressId);
+                    if (address.getCountry().equals(country)
+                            && address.getCity().equals(city)
+                            && address.getStreet().equals(street)
+                            && address.getPostCode() == postcode) {
+                        clientAddressId = address.getId();
+                        break;
+                    }
                 }
+            } catch (TransactionException e) {
+                TransactionManager.rollBackTransaction();
+                throw e;
+            } finally {
+                TransactionManager.commitTransaction();
             }
-//            TransactionManager.commitTransaction();
 
             String email = (String) request.getParameter("email");
             String phone = (String) request.getParameter("phone");
@@ -65,17 +72,23 @@ public class RegisterServlet extends HttpServlet {
 
             Address address = new Address(clientAddressId, country, city, street, postcode);
 
-//            TransactionManager.beginTransaction();
-            AddressDAO addressDAO1 = new AddressDAO();
-            if (!addressDAO1.addressIsExist(address)) {
-                addressDAO1.addAddress(address);
+            try {
+                TransactionManager.beginTransaction();
+                AddressDAO addressDAO1 = new AddressDAO();
+                if (!addressDAO1.addressIsExist(address)) {
+                    addressDAO1.addAddress(address);
+                }
+            } catch (TransactionException e) {
+                TransactionManager.rollBackTransaction();
+                throw e;
+            } finally {
+                TransactionManager.commitTransaction();
             }
-//            TransactionManager.commitTransaction();
 
             ClientDAO clientDAO = new ClientDAO();
             Long clientId = new Long(1);
             List<Long> clientIds = clientDAO.getClientIds();
-            for (int i = 1; i <= clientIds.size(); i++) {
+            for (int i = 1; i <= clientIds.size() + 2; i++) {
                 if (clientIds.indexOf(new Long(i)) == -1) {
                     clientId = new Long(i);
                     break;
@@ -84,10 +97,16 @@ public class RegisterServlet extends HttpServlet {
 
             Client client = new Client(clientId, login, name, surname, birthday, clientAddressId, email, phone, password);
 
-//            TransactionManager.beginTransaction();
-            clientDAO = new ClientDAO();
-            clientDAO.addClient(client);
-            TransactionManager.commitTransaction();
+            try {
+                TransactionManager.beginTransaction();
+                clientDAO = new ClientDAO();
+                clientDAO.addClient(client);
+            } catch (TransactionException e) {
+                TransactionManager.rollBackTransaction();
+                throw e;
+            } finally {
+                TransactionManager.commitTransaction();
+            }
 
             RequestDispatcher rd1 = request.getRequestDispatcher("/view/client_menu.jsp");
             rd1.forward(request, response);
