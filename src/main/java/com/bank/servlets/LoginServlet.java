@@ -20,17 +20,20 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String login = (String)request.getParameter("existing_login");
-        String password = (String) request.getParameter("existing_password");
+        String existingLogin = (String)request.getParameter("existing_login");
+        String existingPassword = (String) request.getParameter("existing_password");
+        String newLogin = (String)request.getParameter("new_login");
 
         TransactionManager.beginTransaction();
         ClientDAO clientDAO = new ClientDAO();
-        Client client = clientDAO.getClientByLogin(login);
+        Client client = clientDAO.getClientByLogin(existingLogin);
         TransactionManager.commitTransaction();
 
-        if (client.getPassword().equals(password)) {
-            request.setAttribute("login", login);
-            request.setAttribute("password", password);
+        request.setAttribute("new_login", newLogin);
+
+        if (client.getPassword().equals(existingPassword)) {
+            request.setAttribute("login", existingLogin);
+            request.setAttribute("password", existingPassword);
             RequestDispatcher rd = request.getRequestDispatcher("/view/client_menu.jsp");
             rd.forward(request, response);
         } else {

@@ -11,6 +11,7 @@ import com.bank.dao.transaction.TransactionManager;
 import com.bank.dao.transaction.WrapConnection;
 import com.bank.dao.transaction.pool.ConnectionPool;
 import com.bank.dto.Client;
+import com.bank.dto.Date;
 
 public class ClientDAO {
 //	private Connection connection;
@@ -83,7 +84,7 @@ public class ClientDAO {
 			client = new Client(id, rs.getString("login"),
 					rs.getString("name"),
 					rs.getString("surname"),
-					rs.getDate("birthday"),
+					new Date(rs.getString("birthday")),
 					rs.getLong("address_id"),
 					rs.getString("email"),
 					rs.getString("phone"),
@@ -109,7 +110,7 @@ public class ClientDAO {
 					login,
 					rs.getString("name"),
 					rs.getString("surname"),
-					rs.getDate("birthday"),
+					new Date(rs.getString("birthday")),
 					rs.getLong("address_id"),
 					rs.getString("email"),
 					rs.getString("phone"),
@@ -140,7 +141,7 @@ public class ClientDAO {
 			ps.setString(2, client.getLogin());
 			ps.setString(3, client.getName());
 			ps.setString(4, client.getSurname());
-			ps.setDate(5, client.getBirthday());
+			ps.setString(5, client.getBirthday().toString());
 			ps.setLong(6, client.getAddressId());
 			ps.setString(7, client.getEmail());
 			ps.setString(8, client.getPhone());
@@ -171,7 +172,7 @@ public class ClientDAO {
 			ps.setString(2, client.getLogin());
 			ps.setString(3, client.getName());
 			ps.setString(4, client.getSurname());
-			ps.setDate(5, client.getBirthday());
+			ps.setString(5, client.getBirthday().toString());
 			ps.setLong(6, client.getAddressId());
 			ps.setString(7, client.getEmail());
 			ps.setString(8, client.getPhone());

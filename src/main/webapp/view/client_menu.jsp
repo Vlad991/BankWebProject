@@ -15,6 +15,6 @@
 </head>
 <body>
     <h1>Hello, Client!</h1>
-    <p>Your login is: &{login}</p>
+    <p>Your login is: <%=request.getParameter("login")%></p>
 </body>
 </html>
