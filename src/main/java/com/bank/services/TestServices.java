@@ -1,6 +1,8 @@
 package com.bank.services;
 
+import com.bank.dto.Address;
 import com.bank.services.id_generator.IdGenerator;
+import com.bank.services.registration.AddressRegistrationService;
 
 public class TestServices {
     public static void main(String[] args) {
@@ -14,5 +16,12 @@ public class TestServices {
 //        System.out.println(adminId);
 //        System.out.println(cardId);
 //        System.out.println(userId);
+        System.out.println(AddressRegistrationService.registerClientAddress(
+                new Address(1l,
+                        "Ukraine",
+                        "Ivano-Frankivsk",
+                        "Guklive",
+                        3)));
+
     }
 }

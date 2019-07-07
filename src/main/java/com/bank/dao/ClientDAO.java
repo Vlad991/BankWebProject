@@ -89,6 +89,29 @@ public class ClientDAO {
 		return client;
 	}
 
+	public List<Client> getAllClients() {
+		List<Client> clientList = new ArrayList<>();
+		PreparedStatement ps = null;
+		try {
+			ps = getPreparedStatement("select * from clients");
+			ResultSet res = ps.executeQuery();
+			while (res.next()) {
+				clientList.add(new Client(res.getLong("id"),
+						res.getString("login"),
+						res.getString("name"),
+						res.getString("surname"),
+						new Date(res.getString("birthday")),
+						res.getLong("address_id"),
+						res.getString("email"),
+						res.getString("phone"),
+						res.getString("password")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return clientList;
+	}
+
 	public Client getClientByLogin(String login) {
 		Client client = null;
 		PreparedStatement ps = null;

@@ -1,4 +1,4 @@
-package com.bank.services;
+package com.bank.services.registration;
 
 public class UserRegistrationService {
 }

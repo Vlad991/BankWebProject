@@ -62,6 +62,25 @@ public class AddressDAO {
         return address;
     }
 
+    public List<Address> getAllAddresses() {
+        List<Address> addressList = new ArrayList<>();
+        PreparedStatement ps = null;
+        try {
+            ps = getPreparedStatement("select * from addresses");
+            ResultSet res = ps.executeQuery();
+            while (res.next()) {
+                addressList.add(new Address(res.getLong("id"),
+                        res.getString("country"),
+                        res.getString("city"),
+                        res.getString("street"),
+                        res.getInt("postcode")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return addressList;
+    }
+
     public Address getAddressByPostcode(int postcode) {
         Address address = null;
         PreparedStatement ps = null;
