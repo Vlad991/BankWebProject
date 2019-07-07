@@ -12,23 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreditCardDAO {
-
-    //	private Connection connection;
-//	private ConnectionPool connectionPool;
-//	private CreditCardDAO creditCardDAO;
     private WrapConnection connection;
 
     public CreditCardDAO() {
-//		connectionPool = ConnectionPool.getConnectionPool();
-//		connection = connectionPool.getConnection();
-        connection = TransactionManager.getConnection();
     }
 
-//	public void returnConnectionInPool() {
-//		connectionPool.returnConnection(connection);
-//	}
-
     public PreparedStatement getPreparedStatement(String sql) {
+        connection = TransactionManager.getConnection();
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(sql);
@@ -37,16 +27,6 @@ public class CreditCardDAO {
         }
 
         return ps;
-    }
-
-    public void closePreparedStatement(PreparedStatement ps) {
-        if (ps != null) {
-            try {
-                ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public List<Long> getCreditCardIds() {
@@ -60,8 +40,6 @@ public class CreditCardDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
         return creditcardIds;
     }
@@ -83,8 +61,6 @@ public class CreditCardDAO {
                     CreditCardStatus.valueOf(rs.getString("status")));
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
         return creditCard;
     }
@@ -107,8 +83,6 @@ public class CreditCardDAO {
                     CreditCardStatus.valueOf(rs.getString("status")));
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
         return creditCard;
     }
@@ -135,8 +109,6 @@ public class CreditCardDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
     }
 
@@ -164,8 +136,6 @@ public class CreditCardDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
     }
 
@@ -178,8 +148,6 @@ public class CreditCardDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
 
     }
@@ -209,8 +177,6 @@ public class CreditCardDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
 
     }

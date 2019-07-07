@@ -14,15 +14,13 @@ import com.bank.dto.Client;
 import com.bank.dto.Date;
 
 public class ClientDAO {
-//	private Connection connection;
 //	private ConnectionPool connectionPool;
-//	private CreditCardDAO creditCardDAO;
-	private WrapConnection connection;
+	private static WrapConnection connection;
 
 	public ClientDAO() {
 //		connectionPool = ConnectionPool.getConnectionPool();
 //		connection = connectionPool.getConnection();
-		connection = TransactionManager.getConnection();
+//		connection = TransactionManager.getConnection();
 	}
 
 //	public void returnConnectionInPool() {
@@ -30,6 +28,7 @@ public class ClientDAO {
 //	}
 
 	public PreparedStatement getPreparedStatement(String sql) {
+		connection = TransactionManager.getConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(sql);
@@ -50,11 +49,6 @@ public class ClientDAO {
 		}
 	}
 
-//	private Connection getConnection() throws Exception {
-//		Class.forName("com.mysql.cj.jdbc.Driver");
-//		return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/accountDB", "root", "123root@");
-//	}
-
 	public List<Long> getClientIds() {
 		List<Long> clientIds = new ArrayList<>();
 		PreparedStatement ps = null;
@@ -66,9 +60,10 @@ public class ClientDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
+//		finally {
+//			closePreparedStatement(ps);
+//		}
 		return clientIds;
 	}
 
@@ -91,8 +86,6 @@ public class ClientDAO {
 					rs.getString("password"));
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 		return client;
 	}
@@ -117,8 +110,6 @@ public class ClientDAO {
 					rs.getString("password"));
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 		return client;
 	}
@@ -149,8 +140,6 @@ public class ClientDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 	}
 
@@ -182,8 +171,6 @@ public class ClientDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 	}
 
@@ -196,10 +183,7 @@ public class ClientDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
-
 	}
 
 	public String getClientPass(Long id) {
@@ -216,10 +200,7 @@ public class ClientDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
-
 	}
 	
 	public boolean clientIsExist(String login, String pass) {

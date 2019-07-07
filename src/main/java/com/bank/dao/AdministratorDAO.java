@@ -10,20 +10,13 @@ import java.util.List;
 
 
 public class AdministratorDAO {
-
 	private WrapConnection connection;
 
 	public AdministratorDAO() {
-//		connectionPool = ConnectionPool.getConnectionPool();
-//		connection = connectionPool.getConnection();
-		connection = TransactionManager.getConnection();
 	}
 
-//	public void returnConnectionInPool() {
-//		connectionPool.returnConnection(connection);
-//	}
-
 	public PreparedStatement getPreparedStatement(String sql) {
+		connection = TransactionManager.getConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(sql);
@@ -32,16 +25,6 @@ public class AdministratorDAO {
 		}
 
 		return ps;
-	}
-
-	public void closePreparedStatement(PreparedStatement ps) {
-		if (ps != null) {
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public List<Integer> getAdministratorIds() {
@@ -55,8 +38,6 @@ public class AdministratorDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 		return adminIds;
 	}
@@ -76,8 +57,6 @@ public class AdministratorDAO {
 					rs.getString("password"));
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 		return admin;
 	}
@@ -98,8 +77,6 @@ public class AdministratorDAO {
 					rs.getString("password"));
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 		return admin;
 	}
@@ -122,8 +99,6 @@ public class AdministratorDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 	}
 
@@ -147,8 +122,6 @@ public class AdministratorDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 	}
 
@@ -161,8 +134,6 @@ public class AdministratorDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 	}
 	
@@ -180,8 +151,6 @@ public class AdministratorDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			closePreparedStatement(ps);
 		}
 	}
 	

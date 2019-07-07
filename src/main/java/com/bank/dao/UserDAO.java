@@ -12,20 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-
     private WrapConnection connection;
 
     public UserDAO() {
-//		connectionPool = ConnectionPool.getConnectionPool();
-//		connection = connectionPool.getConnection();
-        connection = TransactionManager.getConnection();
     }
 
-//	public void returnConnectionInPool() {
-//		connectionPool.returnConnection(connection);
-//	}
-
     public PreparedStatement getPreparedStatement(String sql) {
+        connection = TransactionManager.getConnection();
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(sql);
@@ -34,16 +27,6 @@ public class UserDAO {
         }
 
         return ps;
-    }
-
-    public void closePreparedStatement(PreparedStatement ps) {
-        if (ps != null) {
-            try {
-                ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public List<Long> getUserIds() {
@@ -57,8 +40,6 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
         return userIds;
     }
@@ -74,8 +55,6 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
         return userRoleIds;
     }
@@ -93,8 +72,6 @@ public class UserDAO {
                     Role.valueOf(rs.getString("role")));
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
         return user;
     }
@@ -111,8 +88,6 @@ public class UserDAO {
             user = new User(rs.getLong("id"), role_id, role);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
         return user;
     }
@@ -131,8 +106,6 @@ public class UserDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
     }
 
@@ -152,8 +125,6 @@ public class UserDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
     }
 
@@ -166,8 +137,6 @@ public class UserDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(ps);
         }
     }
 

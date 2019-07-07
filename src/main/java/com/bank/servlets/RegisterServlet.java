@@ -2,6 +2,7 @@ package com.bank.servlets;
 
 import com.bank.dao.AddressDAO;
 import com.bank.dao.ClientDAO;
+import com.bank.dao.DAOFactory;
 import com.bank.dao.transaction.TransactionManager;
 import com.bank.dto.Address;
 import com.bank.dto.Client;
@@ -41,9 +42,9 @@ public class RegisterServlet extends HttpServlet {
             Long clientAddressId = new Long(1);
             try {
                 TransactionManager.beginTransaction();
-                AddressDAO addressDAO = new AddressDAO();
+                AddressDAO addressDAO = DAOFactory.getAddressDAO();
                 List<Long> address_ids = addressDAO.getAddressIds();
-                for (Long i = new Long(1); i < address_ids.size() + 2; i++) {
+                for (Long i = 1L; i < address_ids.size() + 2L; i++) {
                     if (address_ids.indexOf(new Long(i)) == -1) {
                         clientAddressId = i;
                         break;
@@ -71,12 +72,22 @@ public class RegisterServlet extends HttpServlet {
             String password = (String) request.getParameter("password");
 
             Address address = new Address(clientAddressId, country, city, street, postcode);
+            Long clientId = 1l;
+            ClientDAO clientDAO;
 
             try {
                 TransactionManager.beginTransaction();
-                AddressDAO addressDAO1 = new AddressDAO();
+                AddressDAO addressDAO1 = DAOFactory.getAddressDAO();
                 if (!addressDAO1.addressIsExist(address)) {
                     addressDAO1.addAddress(address);
+                }
+                clientDAO = DAOFactory.getClientDAO();
+                List<Long> clientIds = clientDAO.getClientIds();
+                for (int i = 1; i <= clientIds.size() + 2; i++) {
+                    if (clientIds.indexOf(new Long(i)) == -1) {
+                        clientId = new Long(i);
+                        break;
+                    }
                 }
             } catch (TransactionException e) {
                 TransactionManager.rollBackTransaction();
@@ -85,21 +96,12 @@ public class RegisterServlet extends HttpServlet {
                 TransactionManager.commitTransaction();
             }
 
-            ClientDAO clientDAO = new ClientDAO();
-            Long clientId = new Long(1);
-            List<Long> clientIds = clientDAO.getClientIds();
-            for (int i = 1; i <= clientIds.size() + 2; i++) {
-                if (clientIds.indexOf(new Long(i)) == -1) {
-                    clientId = new Long(i);
-                    break;
-                }
-            }
 
             Client client = new Client(clientId, login, name, surname, birthday, clientAddressId, email, phone, password);
 
             try {
                 TransactionManager.beginTransaction();
-                clientDAO = new ClientDAO();
+                clientDAO = DAOFactory.getClientDAO();
                 clientDAO.addClient(client);
             } catch (TransactionException e) {
                 TransactionManager.rollBackTransaction();
