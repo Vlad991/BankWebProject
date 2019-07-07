@@ -1,6 +1,6 @@
 package com.bank.dto;
 
-import java.util.List;
+import java.util.Objects;
 
 public class Date {
     private int day;
@@ -66,5 +66,20 @@ public class Date {
         }
 
         return day + "/" + month + "/" + year;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Date date = (Date) o;
+        return day == date.day &&
+                month == date.month &&
+                year == date.year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, month, year);
     }
 }
