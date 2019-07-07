@@ -97,7 +97,7 @@ public class CreditCardDAO {
                     "code, " +
                     "pin, " +
                     "sum, " +
-                    "status, " +
+                    "status) " +
                     "values (?, ?, ?, ?, ?, ?, ?)");
             ps.setLong(1, creditCard.getId());
             ps.setString(2, creditCard.getDate());
@@ -122,7 +122,7 @@ public class CreditCardDAO {
                     "code, " +
                     "pin, " +
                     "sum, " +
-                    "status, " +
+                    "status) " +
                     "values (?, ?, ?, ?, ?, ?, ?) " +
                     "where id = ?");
             ps.setLong(1, creditCard.getId());
@@ -163,7 +163,7 @@ public class CreditCardDAO {
                     "code, " +
                     "pin, " +
                     "sum, " +
-                    "status, " +
+                    "status) " +
                     "values (?, ?, ?, ?, ?, ?, ?) " +
                     "where id = ?");
             ps.setLong(1, creditCard.getId());

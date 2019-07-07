@@ -30,7 +30,7 @@ public class ClientRegistrationService {
                 TransactionManager.commitTransaction();
             }
 
-            CardRegistrationSrevice.registerNewCreditCardForClient(client);
+            CreditCardRegistrationService.registerNewCreditCardForClient(client);
         }
     }
 

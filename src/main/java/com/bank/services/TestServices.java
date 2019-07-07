@@ -6,6 +6,7 @@ import com.bank.dto.Date;
 import com.bank.services.id_generator.IdGenerator;
 import com.bank.services.registration.AddressRegistrationService;
 import com.bank.services.registration.ClientRegistrationService;
+import com.bank.services.registration.CreditCardRegistrationService;
 
 public class TestServices {
     public static void main(String[] args) {
@@ -35,12 +36,12 @@ public class TestServices {
                 "+380950952457",
                 "123");
         Client client2 = new Client(10L,
-                "pilipka10",
+                "povh11",
                 "Yuriy",
-                "Pilipko",
-                new Date(10, 05, 2000),
+                "Povh",
+                new Date(11, 05, 2000),
                 2L,
-                "yurapilipko@gmail.com",
+                "yurapovh@gmail.com",
                 "+380662873382",
                 "123");
         Address address1 = new Address(1l,
@@ -48,6 +49,6 @@ public class TestServices {
                         "Ivano-Frankivsk",
                         "Guklive",
                         3);
-        ClientRegistrationService.registerClientWithNewCard(client1, address1);
+//        ClientRegistrationService.registerClientWithNewCard(client2, address1);
     }
 }
