@@ -28,6 +28,16 @@ public class Client {
         this.password = password;
     }
 
+    public Client(String login, String name, String surname, Date birthday, String email, String phone, String password) {
+        this.login = login;
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+    }
+
     public Long getId() {
         return id;
     }

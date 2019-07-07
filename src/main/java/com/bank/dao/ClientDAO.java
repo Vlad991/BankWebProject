@@ -35,7 +35,6 @@ public class ClientDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return ps;
 	}
 
