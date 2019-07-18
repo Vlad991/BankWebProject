@@ -1,7 +1,10 @@
 package com.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
 
+@JsonPropertyOrder({"id", "login", "name", "surname", "birthday", "addressId", "email", "phone", "password"})
 public class Client {
     private Long id;
     private String login;

@@ -1,5 +1,8 @@
 package com.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"status"})
 public enum CreditCardStatus {
 	OPEN("OPEN"),
 	BLOCKED("BLOCKED"),

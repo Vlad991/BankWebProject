@@ -1,7 +1,10 @@
 package com.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
 
+@JsonPropertyOrder({"id", "country", "city", "street", "postCode"})
 public class Address {
     private Long id;
     private String country;

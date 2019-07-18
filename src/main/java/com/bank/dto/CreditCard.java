@@ -1,7 +1,10 @@
 package com.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
 
+@JsonPropertyOrder({"id", "date", "clientId", "code", "pin", "sum", "status"})
 public class CreditCard {
     private Long id; // 1414 0000 0000 0000
     private String date;  // 00/00

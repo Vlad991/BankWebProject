@@ -1,7 +1,10 @@
 package com.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.Objects;
 
+@JsonPropertyOrder({"day", "month", "year"})
 public class Date {
     private int day;
     private int month;
