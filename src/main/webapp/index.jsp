@@ -10,19 +10,19 @@
 <head>
     <title>My Bank</title>
     <style>
-        <%@ include file="/view/css/style.css" %>
+        <%@ include file="/WEB-INF/view/css/style.css" %>
     </style>
 </head>
 <body>
 <div class="container">
     <h1>Welcome to our bank!</h1>
-    <form action="/mybank/login" method="post">
-        <input type="text"required placeholder="Login" name="existing_login"/><br>
-        <input type="password"required placeholder="Password" name="existing_password"/><br>
+    <form action="/mybank/client_menu" method="get">
+        <input type="text"required placeholder="Login" name="login"/><br>
+        <input type="password"required placeholder="Password" name="password"/><br>
         <input type="submit" name="login_button" value="Log in">
     </form>
-    <form action="/mybank/register" method="post">
-        <input type="text"required placeholder="Your new login" name="new_login"/><br>
+    <form action="/mybank/register" method="get">
+        <input type="text"required placeholder="Your new login" name="login"/><br>
         <input type="submit" name="registration_button" value="Register">
     </form>
 </div>

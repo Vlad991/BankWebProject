@@ -65,26 +65,27 @@ public class CreditCardDAO {
         return creditCard;
     }
 
-    public CreditCard getCreditCardByClientId(Long clientId) {
-        CreditCard creditCard = null;
+    public List<CreditCard> getCreditCardsByClientId(Long clientId) {
+        List<CreditCard> creditCardList = new ArrayList<>();
         PreparedStatement ps = null;
         try {
             ps = getPreparedStatement("select id, date," +
-                    " code, pin, sum, phone, status from creditcards where client_id = ?");
+                    " code, pin, sum, status from creditcards where client_id = ?");
             ps.setLong(1, clientId);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            creditCard = new CreditCard(rs.getLong("id"),
-                    rs.getString("date"),
-                    clientId,
-                    rs.getInt("code"),
-                    rs.getInt("pin"),
-                    rs.getLong("sum"),
-                    CreditCardStatus.valueOf(rs.getString("status")));
+            while (rs.next()) {
+                creditCardList.add(new CreditCard(rs.getLong("id"),
+                        rs.getString("date"),
+                        clientId,
+                        rs.getInt("code"),
+                        rs.getInt("pin"),
+                        rs.getLong("sum"),
+                        CreditCardStatus.valueOf(rs.getString("status"))));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return creditCard;
+        return creditCardList;
     }
 
     public void addCreditCard(CreditCard creditCard) {
