@@ -1,4 +1,10 @@
 body{
     background: dimgrey;
     color: yellow;
+    font-family: sans-serif;
+}
+
+.error {
+    color: red;
+    font-size: 20px;
 }

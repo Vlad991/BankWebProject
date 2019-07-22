@@ -20,16 +20,17 @@ import java.util.List;
 @WebServlet("/client_menu")
 public class ClientMenuServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         String login = (String) session.getAttribute("login");
         String password = (String) session.getAttribute("password");
+        Client client = (Client) session.getAttribute("client");
         if (login == null) {
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/index.jsp");
             rd.forward(req, resp);
         }
 
-        Client client = ClientAuthenticationService.getClientByLoginAndPassword(login, password);
+//        Client client = ClientAuthenticationService.getClientByLoginAndPassword(login, password);
         if (client == null) {
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/index.jsp");
             rd.forward(req, resp);
@@ -37,9 +38,8 @@ public class ClientMenuServlet extends HttpServlet {
         Address address = ClientAuthenticationService.getClientAddressByLoginAndPassword(login, password);
         List<CreditCard> creditCardList = ClientAuthenticationService.getClientCreditCardListByLoginAndPassword(login, password);
 
-        req.setAttribute("client", client);
-        req.setAttribute("address", address);
-        req.setAttribute("creditCardList", creditCardList);
+        session.setAttribute("address", address);
+        session.setAttribute("creditCardList", creditCardList);
         RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/client_menu.jsp");
         rd.forward(req, resp);
 //            String clientJson = new ObjectMapper().writeValueAsString(client);
@@ -49,10 +49,5 @@ public class ClientMenuServlet extends HttpServlet {
 //            resp.getWriter().print(addressJson);
 //            RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/menu.html");
 //            rd.forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 }

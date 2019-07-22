@@ -17,6 +17,13 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("message", req.getParameter("message"));
+        RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/view/index.jsp");
+        rd.forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
@@ -24,13 +31,14 @@ public class LoginServlet extends HttpServlet {
 
         if (client == null) {
             req.setAttribute("message", "Login or password are incorrect!");
-            req.getRequestDispatcher("").forward(req, resp);
+            req.getRequestDispatcher("login").forward(req, resp);
         }
 
         HttpSession session = req.getSession();
         session.setMaxInactiveInterval(1800);
         session.setAttribute("login", login);
         session.setAttribute("password", password);
+        session.setAttribute("client", client);
         RequestDispatcher rd = req.getRequestDispatcher("client_menu");
         rd.forward(req, resp);
 //

@@ -18,14 +18,14 @@
 <body>
 <div class="container">
     <h1>Welcome to our bank!</h1>
-    <form action="/mybank/login" method="get">
-        <input type="text"required placeholder="Login" name="login"/><br>
-        <input type="password"required placeholder="Password" name="password"/><br>
+    <form action="/mybank/login" method="post">
+        <input type="text" required placeholder="Login" name="login"/><br>
+        <input type="password" required placeholder="Password" name="password"/><br>
         <input type="submit" name="login_button" value="Log in"><br>
-        <p><c:out value="${requestScope.message}"/></p>
+        <p class="error"><c:out value="${requestScope.message}"/></p>
     </form>
     <form action="/mybank/register" method="get">
-        <input type="text"required placeholder="Your new login" name="login"/><br>
+        <input type="text" required placeholder="Your new login" name="login"/><br>
         <input type="submit" name="registration_button" value="Register">
     </form>
 </div>

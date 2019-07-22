@@ -15,13 +15,14 @@
     </style>
 </head>
 <body>
-<p>Login: <c:out value="${requestScope.login}"/></p><br>
+<p>Login: <c:out value="${sessionScope.login}"/></p><br>
 
 <div class="card-info">
     <h2>Card Info:</h2>
     <p>Id: <c:out value="${requestScope.id}"/></p><br>
     <p>Date: <c:out value="${requestScope.date}"/></p><br>
     <p>Code: <c:out value="${requestScope.code}"/></p><br>
+    <p>Status: <c:out value="${requestScope.status}"/></p><br>
 </div>
 
 <div class="card-operations">
@@ -30,7 +31,7 @@
         <input type="submit" name="transfer_button" value="Transfer Money To Another Account">
     </form>
     <form action="/card_menu/topup_account_on_phone" method="get">
-        <input type="submit" name="topop_button" value="Top Up The Account On The Phone">
+        <input type="submit" name="topup_button" value="Top Up The Account On The Phone">
     </form>
 </div>
 </body>

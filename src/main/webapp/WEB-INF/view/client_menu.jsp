@@ -20,26 +20,28 @@
 
 <div class="client-info">
     <h2>Client Info:</h2>
-    <p>Login: <c:out value="${requestScope.getLogin()}"/></p><br>
-    <p>Name: <c:out value="${requestScope.client.getName()}"/></p><br>
-    <p>Surname: <c:out value="${requestScope.client.getSurname()}"/></p><br>
+    <p>Login: <c:out value="${sessionScope.client.getLogin()}"/></p><br>
+    <p>Name: <c:out value="${sessionScope.client.getName()}"/></p><br>
+    <p>Surname: <c:out value="${sessionScope.client.getSurname()}"/></p><br>
     <p>Birthday: <c:out
-            value="${requestScope.client.getBirthday().getDay()}.${requestScope.client.getBirthday().getMonth()}.${requestScope.client.getBirthday().getYear()}"/></p>
+            value="${sessionScope.client.getBirthday().getDay()}.${sessionScope.client.getBirthday().getMonth()}.${sessionScope.client.getBirthday().getYear()}"/></p>
     <br>
     <p>Address: <c:out
-            value="${requestScope.address.getCountry()}, ${requestScope.address.getCity()}, ${requestScope.address.getStreet()} ${requestScope.address.getPostCode()}"/></p>
+            value="${sessionScope.address.getCountry()}, ${sessionScope.address.getCity()}, ${sessionScope.address.getStreet()} ${sessionScope.address.getPostCode()}"/></p>
     <br>
-    <p>Email: <c:out value="${requestScope.client.getEmail()}"/></p><br>
-    <p>Phone: <c:out value="${requestScope.client.getPhone()}"/></p><br>
+    <p>Email: <c:out value="${sessionScope.client.getEmail()}"/></p><br>
+    <p>Phone: <c:out value="${sessionScope.client.getPhone()}"/></p><br>
 </div>
 
 <div class="creditcards">
     <h2>Your Credit Cards:</h2>
-    <c:forEach items="${requestScope.creditCardList}" var="creditCard">
+    <c:forEach items="${sessionScope.creditCardList}" var="creditCard">
         <c:out value="${creditCard.getId()}"/><br>
+        <c:set var="card_id" scope="request" value="${creditCard.getId()}"/>
         <c:out value="${creditCard.getDate()}"/><br>
-        <form action="/mybank/card-menu" method="get">
-            <c:set var="card_id" scope="request" value="${creditCard.getId()}"/>
+        <form action="/mybank/client_menu/card_menu" method="post">
+            <input type="text" required placeholder="id" name="card_id">
+            <input type="password" required placeholder="Pin Code" name="pin"/><br>
             <input type="submit" name="card_menu_button" value="Card Menu">
         </form>
     </c:forEach>
