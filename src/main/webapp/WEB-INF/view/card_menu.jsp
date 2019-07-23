@@ -27,10 +27,19 @@
 
 <div class="card-operations">
     <h2>Your account: <c:out value="${requestScope.sum}"/></h2><br>
-    <form action="/card_menu/transfer_money_to_account" method="get">
-        <input type="submit" name="transfer_button" value="Transfer Money To Another Account">
-    </form>
-    <form action="/card_menu/topup_account_on_phone" method="get">
+
+    <div class="transfer-money">
+        <h2>Transfer Money</h2>
+        <form action="/mybank/client_menu/card_menu/transfer_money" method="post">
+            From: <input type="text" required placeholder="Enter Card Id" name="id"><br><br>
+            <input type="password" required placeholder="Pin Code" name="pin"/><br><br>
+            To: <input type="text" required placeholder="Enter Recipient Card Id" name="recipient_id"><br><br>
+            <input type="text" required placeholder="Enter Sum" name="sum"><br><br>
+            <input type="submit" name="transfer_button" value="Transfer Money To Another Account">
+        </form>
+    </div>
+
+    <form action="/mybank/card_menu/topup_account_on_phone" method="get">
         <input type="submit" name="topup_button" value="Top Up The Account On The Phone">
     </form>
 </div>

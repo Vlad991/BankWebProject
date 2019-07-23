@@ -117,14 +117,13 @@ public class CreditCardDAO {
         PreparedStatement ps = null;
         try {
             ps = getPreparedStatement("update creditcards set " +
-                    "(id, " +
-                    "date, " +
-                    "client_id, " +
-                    "code, " +
-                    "pin, " +
-                    "sum, " +
-                    "status) " +
-                    "values (?, ?, ?, ?, ?, ?, ?) " +
+                    "id = ?, " +
+                    "date = ?, " +
+                    "client_id = ?, " +
+                    "code = ?, " +
+                    "pin = ?, " +
+                    "sum = ?, " +
+                    "status = ? " +
                     "where id = ?");
             ps.setLong(1, creditCard.getId());
             ps.setString(2, creditCard.getDate());
