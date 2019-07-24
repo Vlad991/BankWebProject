@@ -31,7 +31,10 @@
     <div class="transfer-money">
         <h2>Transfer Money</h2>
         <form action="/mybank/client_menu/card_menu/transfer_money" method="post">
-            From: <input type="text" required placeholder="Enter Card Id" name="id"><br><br>
+            From: <input type="text" required placeholder="Enter Card Id" name="id" readonly type="email" onfocus="if (this.hasAttribute('readonly')) {
+    this.removeAttribute('readonly');
+    this.blur();
+    this.focus(); }"><br><br>
             <input type="password" required placeholder="Pin Code" name="pin"/><br><br>
             To: <input type="text" required placeholder="Enter Recipient Card Id" name="recipient_id"><br><br>
             <input type="text" required placeholder="Enter Sum" name="sum"><br><br>
@@ -40,6 +43,13 @@
     </div>
 
     <form action="/mybank/card_menu/topup_account_on_phone" method="get">
+        From: <input type="text" required placeholder="Enter Card Id" name="id" readonly type="email" onfocus="if (this.hasAttribute('readonly')) {
+    this.removeAttribute('readonly');
+    this.blur();
+    this.focus(); }"><br><br>
+        <input type="password" required placeholder="Pin Code" name="pin"/><br><br>
+        To: <input type="text" required placeholder="Enter Phone Number" name="phone"><br><br>
+        <input type="text" required placeholder="Enter Sum" name="sum"><br><br>
         <input type="submit" name="topup_button" value="Top Up The Account On The Phone">
     </form>
 </div>

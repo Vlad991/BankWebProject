@@ -37,10 +37,13 @@
     <h2>Your Credit Cards:</h2>
     <c:forEach items="${sessionScope.creditCardList}" var="creditCard">
         <c:out value="${creditCard.getId()}"/><br>
-<%--        <c:set var="card_id" scope="request" value="${creditCard.getId()}"/>--%>
+        <%--        <c:set var="card_id" scope="request" value="${creditCard.getId()}"/>--%>
         <c:out value="${creditCard.getDate()}"/><br>
         <form action="/mybank/client_menu/card_menu" method="post">
-            <input type="text" required placeholder="Enter Card Id" name="card_id">
+            <input type="text" required placeholder="Enter Card Id" name="id" readonly type="email" onfocus="if (this.hasAttribute('readonly')) {
+    this.removeAttribute('readonly');
+    this.blur();
+    this.focus(); }">
             <input type="password" required placeholder="Pin Code" name="pin"/><br>
             <input type="submit" name="card_menu_button" value="Card Menu">
         </form>

@@ -19,8 +19,7 @@ public class CardMenuServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Client client = (Client) session.getAttribute("client");
-        String id = req.getParameter("card_id");
-        Long cardId = Long.valueOf(req.getParameter("card_id"));
+        Long cardId = Long.valueOf(req.getParameter("id"));
         int pin = Integer.parseInt(req.getParameter("pin"));
 
         CreditCard creditCard = CreditCardAuthentificationService.getCreditCardByIdAndPin(cardId, pin);
