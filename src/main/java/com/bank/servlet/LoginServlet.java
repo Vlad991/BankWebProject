@@ -1,6 +1,8 @@
 package com.bank.servlet;
 
+import com.bank.dto.Administrator;
 import com.bank.dto.Client;
+import com.bank.services.AdminAuthentificationService;
 import com.bank.services.ClientAuthenticationService;
 
 import javax.servlet.RequestDispatcher;
@@ -27,9 +29,12 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        Client client = ClientAuthenticationService.getClientByLoginAndPassword(login, password);
+        Client client = ClientAuthenticationService
+                .getClientByLoginAndPassword(login, password);
+        Administrator admin = AdminAuthentificationService
+                .getAdminByLoginAndPassword(login, password);
 
-        if (client == null) {
+        if (client == null && admin == null) {
             req.setAttribute("message", "Login or password are incorrect!");
             req.getRequestDispatcher("login").forward(req, resp);
         }
@@ -38,14 +43,15 @@ public class LoginServlet extends HttpServlet {
         session.setMaxInactiveInterval(1800);
         session.setAttribute("login", login);
         session.setAttribute("password", password);
-        session.setAttribute("client", client);
-        RequestDispatcher rd = req.getRequestDispatcher("client_menu");
-        rd.forward(req, resp);
-//
-//            PrintWriter writer = resp.getWriter();
-//            writer.println("<html><body<h2>Error</h2></body></html>");
-//
-//        RequestDispatcher rd1 = req.getRequestDispatcher("/WEB-INF/view/login.jsp");
-//        rd.forward(req, resp);
+
+        if (client != null) {
+            session.setAttribute("client", client);
+            RequestDispatcher rd = req.getRequestDispatcher("client_menu");
+            rd.forward(req, resp);
+        } else {
+            session.setAttribute("admin", admin);
+            RequestDispatcher rd = req.getRequestDispatcher("admin_menu");
+            rd.forward(req, resp);
+        }
     }
 }
