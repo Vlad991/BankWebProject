@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("client", client);
             RequestDispatcher rd = req.getRequestDispatcher("client_menu");
             rd.forward(req, resp);
-        } else {
+        } else if (admin != null) {
             session.setAttribute("admin", admin);
             RequestDispatcher rd = req.getRequestDispatcher("admin_menu");
             rd.forward(req, resp);

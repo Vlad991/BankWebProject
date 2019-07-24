@@ -11,7 +11,6 @@ public class IdGenerator {
     private static AddressDAO addressDAO = DAOFactory.getAddressDAO();
     private static AdministratorDAO administratorDAO = DAOFactory.getAdministratorDAO();
     private static CreditCardDAO creditCardDAO = DAOFactory.getCreditCardDAO();
-    private static UserDAO userDAO = DAOFactory.getUserDAO();
 
     public static Long getClientId() {
         Long clientId = 1l;
@@ -91,26 +90,6 @@ public class IdGenerator {
             TransactionManager.commitTransaction();
         }
         return cardId;
-    }
-
-    public static Long getUserId() {
-        Long userId = 1l;
-        try {
-            TransactionManager.beginTransaction();
-            List<Long> userIds = userDAO.getUserIds();
-            for (int i = 1; i <= userIds.size() + 2; i++) {
-                if (userIds.indexOf(new Long(i)) == -1) {
-                    userId = new Long(i);
-                    break;
-                }
-            }
-        } catch (TransactionException e) {
-            TransactionManager.rollBackTransaction();
-            throw e;
-        } finally {
-            TransactionManager.commitTransaction();
-        }
-        return userId;
     }
 
 }
