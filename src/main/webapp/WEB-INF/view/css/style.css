@@ -4,7 +4,81 @@ body{
     font-family: sans-serif;
 }
 
+.header {}
+
+.welcome {
+    font-family: "Myriad Pro", sans-serif;
+    text-align: center;
+    font-size: 40px;
+    font-weight: lighter;
+    color: #1ab188;
+}
+
+.container {
+    background: #23313c;
+    position: absolute;
+    left: 500px;
+    top: 105px;
+    width: 425px;
+    height: 425px;
+}
+
+.login-form {
+    margin: 0 auto;
+    width: 375px;
+}
+
+.login-title {
+    text-align: center;
+    font-family: "Myriad Pro", sans-serif;
+    font-size: 31px;
+    font-weight: lighter;
+    color: #fffffa;
+}
+
+.field {
+    background: rgba(0, 0, 0, 0);
+    height: 35px;
+    border: 1px #7c8e8f solid;
+    box-sizing: border-box;
+    padding: 8px;
+    font-family: "Myriad Pro", sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+    color: #1ab188;
+}
+
+.login {
+    width: 181px;
+}
+
+.password {
+    margin-left: 10px;
+    width: 179px;
+}
+
+.button {
+    background: #1ab188;
+    border: none;
+    width: 100%;
+    height: 57px;
+    font-family: "Myriad Pro", sans-serif;
+    color: #fff;
+    font-size: 29px;
+}
+
+.login-button {margin: 28px auto 0;}
+
 .error {
     color: red;
     font-size: 20px;
 }
+
+.registation-form {
+    width: 375px;
+    margin: 0 auto;
+}
+
+.new-login {width: 100%;margin: 0 0 25px 0;}
+
+.register-button {}

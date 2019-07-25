@@ -1,0 +1,120 @@
+.container {
+    background: none;
+    display: flex;
+    justify-content: space-between;
+    width: 63%;
+    position: static;
+    width: 100%;
+    min-height: 100px;
+}
+
+.client-info {
+    background: #23313c;
+    width: 51%;
+    border: #fff 2px solid;
+    border-radius: 29px;
+}
+
+.heading {
+    color: #fff;
+    font-family: "Myriad Pro", sans-serif;
+    font-weight: lighter;
+    font-size: 34px;
+    text-align: center;
+}
+
+.info {
+    height: 256px;
+    margin: 0;
+    padding: 0;
+}
+
+.info__item {
+    list-style: none;
+    font-family: "Myriad Pro", sans-serif;
+    font-size: 20px;
+    color: #fff;
+    margin: 17px;
+}
+
+.info__value {
+    font-style: italic;
+    color: black;
+    margin: 21px;
+}
+
+.creditcards {
+    background: #11749e;
+    border: #fff 2px solid;
+    border-radius: 30px;
+    width: 42%;
+    min-height: 204px;
+}
+
+.card {
+    background: url(../images/card.jpg) no-repeat center;
+    width: 360px;
+    height: 226px;
+    position: relative;
+    border-radius: 19px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.id {
+    position: absolute;
+    left: 11px;
+    top: 148px;
+    width: 195px;
+    font-family: "Myriad Pro", sans-serif;
+    font-size: 17px;
+    color: #fff;
+    letter-spacing: 3px;
+}
+
+.date {
+    position: absolute;
+    left: 11px;
+    top: 174px;
+    width: 195px;
+    font-family: "Myriad Pro", sans-serif;
+    font-size: 17px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.name {
+    position: absolute;
+    left: 11px;
+    top: 193px;
+    width: 195px;
+    font-family: "Myriad Pro", sans-serif;
+    font-size: 17px;
+    color: #fff;
+    letter-spacing: 3px;
+}
+
+.menu-form {
+    width: 339px;
+    margin: 0 auto;
+}
+
+.menu-button {
+    height: 35px;
+    border-radius: 5px;
+}
+
+.id-field {
+    color: #fff;
+    border: #fff 1px solid;
+    margin: 9px auto;
+    border-radius: 4px;
+}
+
+.password-field {
+    width: 95px;
+    color: #fff;
+    border: #fff 1px solid;
+    margin: 9px 0 0 35px;
+    border-radius: 4px;
+}
